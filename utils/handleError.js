@@ -1,5 +1,5 @@
-const handleError = (code, message) => ({ 
-  code, 
+const handleError = (status, message) => ({ 
+  status, 
   message, 
 });
 

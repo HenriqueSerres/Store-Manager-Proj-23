@@ -3,7 +3,7 @@ const saleController = require('../../controllers/saleController');
 
 const saleRouter = express.Router();
 
-saleRouter.get('/sales', saleController.getAllSales);
-saleRouter.get('/sales/:id', saleController.getSaleId);
+saleRouter.get('/', saleController.getAllSales);
+saleRouter.get('/:id', saleController.getSaleId);
 
 module.exports = saleRouter;

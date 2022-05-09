@@ -1,13 +1,13 @@
 const productService = require('../services/productService');
 
-const getAllProducts = async (req, res, next) => {
+const getAllProducts = async (_req, res, next) => {
   try {
     const products = await productService.getAllProducts();
 
     return res.status(200).json(products);
-  } catch (err) {
-    console.log('err list products', err.message);
-    next(err);
+  } catch (error) {
+    console.log('err list products', error.message);
+    next(error);
   }
 };
 

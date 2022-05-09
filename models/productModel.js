@@ -8,7 +8,7 @@ const getAllProducts = async () => {
 const getProductId = async (id) => {
   const [result] = await connection.execute(`SELECT * FROM StoreManager.products 
   WHERE id = ?;`, [id]);
-  return result;
+  return result[0];
 };
 
 module.exports = {
