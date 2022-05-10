@@ -3,12 +3,12 @@ const router = require('./routes');
 const middlewares = require('./middlewares/errorMiddleware');
 
 const app = express();
+app.use(express.json());
 
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.send();
 });
-app.use(express.json());
 app.use(router);
 app.use(middlewares.errorMiddleware);
 // não remova essa exportação, é para o avaliador funcionar
