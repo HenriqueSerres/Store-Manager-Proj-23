@@ -24,8 +24,18 @@ const addProductByName = async (name, quantity) => {
   throw handleError('409', 'Product already exists');
 };
 
+const upDateProduct = async (id, name, quantity) => {
+  const productIdExist = await productModel.findProductId(id);
+  if (!productIdExist.length) {
+    throw handleError('404', 'Product not found');
+  }
+  const newProduct = await productModel.upDateProduct(id, name, quantity);
+  return newProduct;
+};
+
 module.exports = {
   getAllProducts,
   getProductId,
   addProductByName,
+  upDateProduct,
 };

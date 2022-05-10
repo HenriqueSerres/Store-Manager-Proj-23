@@ -33,8 +33,21 @@ const addProductByName = async (req, res, next) => {
   }
 };
 
+const upDateProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, quantity } = req.body;
+    const editProduct = await productService.upDateProduct(id, name, quantity);
+    return res.status(200).json(editProduct);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 module.exports = {
   getAllProducts,
   getProductId,
   addProductByName,
+  upDateProduct,
 };
