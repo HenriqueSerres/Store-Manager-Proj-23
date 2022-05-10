@@ -15,9 +15,15 @@ const getSaleId = async (id) => {
   return saleId;
 };
 
-const addSales = async (productId, quantity) => {  
-  const newsale = await saleModel.addSales(productId, quantity);
-  return newsale;  
+const addSales = async (sale) => {  
+  const newSaleId = await saleModel.getNewSaleId();
+  await Promise.all(sale.forEach(({ productId, quantity }) => 
+  saleModel.addSales(newSaleId, productId, quantity)));
+  const newSale = {
+    id: newSaleId,
+    itemsSold: sale,
+  };  
+  return newSale;
 };
 
 module.exports = {
