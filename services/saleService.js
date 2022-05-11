@@ -17,12 +17,13 @@ const getSaleId = async (id) => {
 
 const addSales = async (sale) => {  
   const newSaleId = await saleModel.getNewSaleId();
-  await Promise.all(sale.forEach(({ productId, quantity }) => 
+  await Promise.all(sale.map(({ productId, quantity }) => 
   saleModel.addSales(newSaleId, productId, quantity)));
+  console.log(sale); 
   const newSale = {
     id: newSaleId,
     itemsSold: sale,
-  };  
+  }; 
   return newSale;
 };
 

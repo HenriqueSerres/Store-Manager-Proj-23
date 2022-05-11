@@ -24,8 +24,7 @@ const getSaleId = async (req, res, next) => {
 
 const addSales = async (req, res, next) => {
   try {
-    const sale = req.body;
-    const newSale = await saleService.addSales(sale);
+    const newSale = await saleService.addSales(req.body);
     return res.status(201).json(newSale);
   } catch (error) {
     console.log(error);

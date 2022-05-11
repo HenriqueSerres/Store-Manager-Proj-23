@@ -18,21 +18,20 @@ const getSaleId = async (id) => {
    ON s.id = sp.sale_id
   WHERE id = ?;
   `, [id]);
-  console.log(result);
   return result[0];
 };
 
 const getNewSaleId = async () => {
   const [{ insertId: id }] = await connection.execute(`
-  INSERT INTO sales (date) VALUES (now())
+  INSERT INTO sales (date) VALUES (NOW())
   `);
   return id;
 };
 
-const addSales = async (sale) => {  
+const addSales = async (saleId, productId, quantity) => {  
   const productSold = await connection.execute(`
-  INSERT INTO sales_products VALUES (?, ?, ?)
-  `, [sale.saleId, sale.productId, sale.quantity]);
+  INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)
+  `, [saleId, productId, quantity]);
   return productSold;
 };
 
