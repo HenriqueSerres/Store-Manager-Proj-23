@@ -27,8 +27,24 @@ const addSales = async (sale) => {
   return newSale;
 };
 
+const upDateSales = async (id, sale) => {
+  const saleIdEdited = await saleModel.findSaleId(id);
+  console.log(saleIdEdited);
+  if (!saleIdEdited.length) {
+    throw handleError('404', 'Sale not found');
+  }
+  await Promise.all(sale.map(({ productId, quantity }) => 
+  saleModel.upDateSales(id, productId, quantity)));
+  const editedSale = {
+    saleId: saleIdEdited[0].id,
+    itemUpdated: sale,
+  }; 
+  return editedSale;
+};
+
 module.exports = {
   getAllSales,
   getSaleId,
   addSales,
+  upDateSales,
 };

@@ -32,8 +32,20 @@ const addSales = async (req, res, next) => {
   }
 };
 
+const upDateSales = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const editSale = await saleService.upDateSales(id, req.body);
+    return res.status(200).json(editSale);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 module.exports = {
   getAllSales,
   getSaleId,
   addSales,
+  upDateSales,
 };
