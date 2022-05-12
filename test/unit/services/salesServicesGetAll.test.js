@@ -1,51 +1,49 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
+const saleService = require('../../../services/saleService');
 const saleModel = require('../../../models/saleModel');
-const connection = require('../../../models/connection');
 
-describe('Busca todas as vendas no BD', () => {
-  describe('quando não existe nenhuma venda criada', () => {
+describe('Busca todos as vendas no BD', () => {
+  describe('quando não existe nenhum produto criado', () => {
 
-    const resultExecute = [[]];
-
-    before(() => {
-      sinon.stub(connection, 'execute')
-        .resolves(resultExecute)
+    beforeEach(() => {
+      sinon.stub(saleModel, 'getAllSales')
+        .resolves([])
     })
 
-    after(() => {
-      connection.execute.restore();
+    afterEach(() => {
+      saleModel.getAllSales.restore();
     })
 
     it('retorna um array', async () => {
-      const result = await saleModel.getAllSales();
+      const result = await saleService.getAllSales();
       expect(result).to.be.an('array');
     })
 
     it('o array está vazio', async () => {
-      const result = await saleModel.getAllSales();
+      const result = await saleService.getAllSales();
 
-      expect(result.length).to.be.equal(0)
+      expect(result).to.be.empty;
     })
   });
 
-  describe('quando existem filmes registrado no BD', () => {
+  describe('quando existem produtos registrado no BD', () => {
     const resultExecute = [
       {
         saleId: 1,
         date: '2021-09-09T04:54:29.000Z',
         productId: 1,
-        quantity: 2,
-      },
-    ]
+        quantity: 2
+      }
+    ];
 
     beforeEach(() => {
-      sinon.stub(connection, 'execute')
-        .resolves([resultExecute])
+      sinon.stub(saleModel, 'getAllSales')
+        .resolves(resultExecute)
     })
 
     afterEach(() => {
-      connection.execute.restore();
+      saleModel.getAllSales.restore();
     })
 
     it('retorna um array', async () => {
@@ -63,13 +61,13 @@ describe('Busca todas as vendas no BD', () => {
       expect(result).to.be.an('object');
     })
 
-    it('o objeto que esta no array contem os atributos saleId, date, productId, quantity ', async () => {
+    it('o objeto que esta no array contem os atributos saleId, date, prductId, quantity', async () => {
       const [result] = await saleModel.getAllSales();
       expect(result).to.be.includes.all.keys(
         'saleId',
         'date',
         'productId',
-        'quantity'
+        'quantity',
       )
     })
   })
