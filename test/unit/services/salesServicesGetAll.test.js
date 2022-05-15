@@ -4,7 +4,7 @@ const saleService = require('../../../services/saleService');
 const saleModel = require('../../../models/saleModel');
 
 describe('Busca todos as vendas no BD', () => {
-  describe('quando não existe nenhum produto criado', () => {
+  describe('quando não existe nenhuma venda criada', () => {
 
     beforeEach(() => {
       sinon.stub(saleModel, 'getAllSales')
@@ -27,7 +27,7 @@ describe('Busca todos as vendas no BD', () => {
     })
   });
 
-  describe('quando existem produtos registrado no BD', () => {
+  describe('quando existem vendas registradas no BD', () => {
     const resultExecute = [
       {
         saleId: 1,
