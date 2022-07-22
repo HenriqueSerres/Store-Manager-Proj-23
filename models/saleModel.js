@@ -47,8 +47,14 @@ const upDateSales = async (id, productId, quantity) => {
   UPDATE sales_products SET product_id = ?, quantity = ?
   WHERE sale_id = ?;
   `, [productId, quantity, id]);
-  console.log(result);
   return result;
+};
+
+const deleteSales = async (id) => {
+  await connection.execute(`
+  DELETE FROM sales_products WHERE sale_id = ?;
+  `, [id]);
+  return { id };
 };
 
 module.exports = {
@@ -58,4 +64,5 @@ module.exports = {
   getNewSaleId,
   upDateSales,
   findSaleId,
+  deleteSales,
 };
